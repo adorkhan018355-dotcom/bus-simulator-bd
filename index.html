@@ -4,16 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>BUS SIMULATOR BANGLADESH</title>
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiQlVTIFNJTVVMQVRPUiBCQU5HTEFEESHIIiwic2hvcnRfbmFtZSI6IkJVUyBTSU0gQkQiLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMDAwMDAwIiwidGhlbWVfY29sb3IiOiIjZmZjYzAwIn0=">
 <meta name="application-name" content="BUS SIMULATOR BANGLADESH">
+<meta name="theme-color" content="#ffcc00">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;user-select:none;-webkit-tap-highlight-color:transparent}
 body{background:#000;color:#fff;height:100vh;width:100vw;overflow:hidden}
 .screen{position:absolute;inset:0;display:none;flex-direction:column;overflow-y:auto}
 .active{display:flex!important}
-#loading{background:radial-gradient(#0a2a1a,#000);align-items:center;justify-content:center;z-index:999}
-#logoCircle{width:110px;height:110px;background:linear-gradient(135deg,#006a4e,#f42a41);border-radius:25px;display:flex;align-items:center;justify-content:center;font-size:50px;border:3px solid #ffcc00;box-shadow:0 0 25px #ffcc00;animation:float 2s infinite ease-in-out}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+#loading{background:radial-gradient(ellipse at center,#0a2a1a 0%,#000 100%);align-items:center;justify-content:center;z-index:999;text-align:center;padding:15px}
+#logoWrap{width:130px;height:130px;margin:0 auto 12px;filter:drop-shadow(0 0 20px #ffcc00);animation:float 2s infinite ease-in-out}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 #bar{width:240px;height:10px;background:#1a1a1a;border-radius:10px;overflow:hidden;margin:14px auto;border:1px solid #333}
 #fill{height:100%;width:0%;background:linear-gradient(to right,#ffcc00,#00e676)}
 #topBar{background:#000;padding:6px 9px;display:flex;justify-content:space-between;font-size:10px;border-bottom:2px solid #ffcc00;color:#ffcc00;font-weight:bold}
@@ -42,23 +43,36 @@ select,input{width:100%;padding:9px;background:#0f1a2a;color:#fff;border:1px sol
 <body>
 
 <div id="loading" class="screen active">
-<div style="text-align:center">
-<div id="logoCircle">🚌</div>
-<h1 style="color:#ffcc00;font-size:17px">BUS SIMULATOR BANGLADESH</h1>
-<p style="color:#00e676;font-size:10px">DARK TEAM BD | BUSSID STYLE LOADING</p>
-<div id="bar"><div id="fill"></div></div>
-<p id="loadText" style="font-size:9px">Loading BUSSID Style Driver Cabin... 0%</p>
+<!-- LOGO EMBEDDED INSIDE CODE - NO SEPARATE FILE NEEDED -->
+<div id="logoWrap">
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#006a4e"/><stop offset="100%" stop-color="#00e676"/></linearGradient></defs>
+<circle cx="100" cy="100" r="95" fill="#0a2a1a" stroke="#ffcc00" stroke-width="6"/>
+<circle cx="100" cy="100" r="82" fill="none" stroke="#00e676" stroke-width="1" stroke-dasharray="4 4"/>
+<rect x="45" y="65" width="110" height="70" rx="12" fill="url(#g)" stroke="#ff0000" stroke-width="3"/>
+<rect x="52" y="72" width="96" height="28" rx="5" fill="#c8ffe0"/>
+<circle cx="75" cy="125" r="10" fill="#111"/><circle cx="125" cy="125" r="10" fill="#111"/>
+<text x="100" y="30" text-anchor="middle" font-size="11" font-weight="900" fill="#ffcc00">BUS SIMULATOR</text>
+<text x="100" y="168" text-anchor="middle" font-size="10" font-weight="900" fill="#ffcc00">BANGLADESH</text>
+<text x="100" y="182" text-anchor="middle" font-size="7" fill="#fff">DARK TEAM BD</text>
+</svg>
 </div>
+<h1 style="color:#ffcc00;font-size:17px;letter-spacing:1px">BUS SIMULATOR BANGLADESH</h1>
+<p style="color:#00e676;font-size:10px;font-weight:bold;letter-spacing:2px">DARK TEAM BD</p>
+<p style="font-size:9px;opacity:0.6;margin-top:3px">Logo Embedded Inside Code - Direct APK</p>
+<div id="bar"><div id="fill"></div></div>
+<p id="loadText" style="font-size:9px">Loading BUSSID Style 11 Gear, Sleeper 300, Normal 180... 0%</p>
+<p style="font-size:8px;opacity:0.3;margin-top:10px">Direct APK Ready | No Separate Logo Needed</p>
 </div>
 
 <div id="login" class="screen">
 <div style="flex:1;display:flex;align-items:center;justify-content:center;background:radial-gradient(#1e3a5f,#000);padding:12px">
 <div style="width:100%;max-width:350px;background:rgba(0,0,0,0.85);border:1.5px solid #ffcc00;border-radius:16px;padding:16px;text-align:center">
-<div style="width:60px;height:60px;background:linear-gradient(135deg,#006a4e,#f42a41);border-radius:14px;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:30px">🚌</div>
-<h3 style="color:#ffcc00">BUS SIMULATOR BANGLADESH</h3>
+<div style="width:55px;height:55px;margin:0 auto"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="95" fill="#0a2a1a" stroke="#ffcc00" stroke-width="6"/><rect x="45" y="65" width="110" height="70" rx="12" fill="#006a4e" stroke="#ff0000" stroke-width="3"/><rect x="52" y="72" width="96" height="28" rx="5" fill="#c8ffe0"/><circle cx="75" cy="125" r="10" fill="#111"/><circle cx="125" cy="125" r="10" fill="#111"/><text x="100" y="30" text-anchor="middle" font-size="11" font-weight="900" fill="#ffcc00">BUS SIMULATOR</text><text x="100" y="168" text-anchor="middle" font-size="10" font-weight="900" fill="#ffcc00">BANGLADESH</text></svg></div>
+<h3 style="color:#ffcc00;font-size:13px;margin-top:6px">BUS SIMULATOR BANGLADESH</h3>
 <input id="loginName" placeholder="নাম"><input id="loginEmail" placeholder="Gmail"><input id="loginPass" type="password" placeholder="Password">
 <button class="btn btnPlay" onclick="doLogin()">▶ LOGIN</button>
-<div class="privacy">Contact: darkteambd2026@gmail.com | Direct APK</div>
+<div class="privacy">Contact: darkteambd2026@gmail.com | Logo Embedded | Direct APK</div>
 </div>
 </div>
 </div>
@@ -66,45 +80,38 @@ select,input{width:100%;padding:9px;background:#0f1a2a;color:#fff;border:1px sol
 <div id="lobby" class="screen">
 <div id="topBar"><span>🚌 BUS SIMULATOR BANGLADESH | 💰<span id="moneyTop">5000</span>TK</span><span>🚌<span id="ownedBusCount">1</span> | ⛽<span id="fuelTop">81</span>%</span></div>
 <div style="flex:1;padding:7px;display:flex;flex-direction:column;gap:6px;overflow-y:auto">
-<div class="card" style="border-color:#ffcc00"><div style="color:#ffcc00;font-size:10px;font-weight:bold">🗺️ 64 Zila + Upazila:</div><div style="display:flex;gap:5px"><div style="flex:1"><select id="fromZila" onchange="updateUpazila('from')"></select><select id="fromUpazila"></select></div><div style="flex:1"><select id="toZila" onchange="updateUpazila('to')"></select><select id="toUpazila"></select></div></div></div>
-<div class="card" style="border-color:#00e676"><div style="color:#00e676;font-size:10px;font-weight:bold">🚌 BUS SHOP 250K-800K (Sleeper 300 Speed, Normal 180):</div><div class="shopGrid" id="busShop"></div><select id="busSelect"></select></div>
+<div class="card" style="border-color:#ffcc00"><div style="color:#ffcc00;font-size:10px;font-weight:bold">🗺️ 64 Zila + All Upazila - From/To:</div><div style="display:flex;gap:5px"><div style="flex:1"><select id="fromZila" onchange="updateUpazila('from')"></select><select id="fromUpazila"></select></div><div style="flex:1"><select id="toZila" onchange="updateUpazila('to')"></select><select id="toUpazila"></select></div></div></div>
+<div class="card" style="border-color:#00e676"><div style="color:#00e676;font-size:10px;font-weight:bold">🚌 BUS SHOP 250K-800K - Sleeper 300 Speed, Normal 180:</div><div class="shopGrid" id="busShop"></div><select id="busSelect"></select></div>
 <div class="card" style="border-color:#2196F3"><div style="color:#2196F3;font-size:10px;font-weight:bold">🎭 Character 2 Free 60K-100K:</div><select id="charSelect"><option value="0">🎩 Viral Hero FREE</option><option value="1">😎 Comedy King FREE</option><option value="2">👑 Dhaka King 60K LOCK</option><option value="3">🔥 Road Master 80K LOCK</option><option value="4">💎 Super Driver 100K LOCK</option></select></div>
-<button class="btn btnPlay" onclick="startTrip()">▶🚌 START GAME - BUSSID STYLE CABIN</button>
+<button class="btn btnPlay" onclick="startTrip()">▶🚌 START GAME - BUSSID CABIN - 11 GEAR - 300 SPEED</button>
 <div style="display:flex;gap:5px"><button class="btn btnBlue" style="flex:1;padding:10px;font-size:10px" onclick="doubleVaraAd()">📺 Ad 2X <span id="doubleStatus">OFF</span></button><button class="btn btnGold" style="flex:1;padding:10px;font-size:10px" onclick="openAdmin()">🔑 ADMIN #ador@salman655</button></div>
-<div class="privacy">BUSSID Style: Driver Button, Fuel Tank Load, 11 Gear, Sleeper 300, Normal 180 | Direct APK | darkteambd2026@gmail.com</div>
+<div class="privacy">Logo Embedded Inside Code | BUSSID Style Driver, Fuel Tank Load, Brake, Accelerator, 11 Gear, Sleeper 300, Normal 180 | APK: BUS SIMULATOR BANGLADESH | darkteambd2026@gmail.com</div>
 </div>
 </div>
 
-<!-- GAME SCREEN - BUSSID STYLE -->
 <div id="gameScreen" class="screen">
 <canvas id="gameCanvas"></canvas>
 <div class="dialoguePop" id="dialogueBox"></div>
-<div id="hud"><span>📍<span id="hudRoute">Dhaka</span> | 💰<span id="hudMoney">0</span> Vara <span id="hudVara">100</span><span id="hudDouble"></span> | 👥<span id="hudPass">0</span></span><span>⛽<span id="hudFuel">81</span>% | <span id="hudSpeed">0</span> KM/H | Gear <span id="hudGear">N</span></span></div>
-
-<!-- BUSSID STYLE CONTROLS -->
+<div id="hud"><span>📍<span id="hudRoute">Dhaka</span> | Vara <span id="hudVara">100</span><span id="hudDouble"></span></span><span>⛽<span id="hudFuel">81</span>% | <span id="hudSpeed">0</span> KM/H | G <span id="hudGear">N</span></span></div>
 <div id="controls">
 <div id="controlsTop">
 <div style="display:flex;gap:5px;align-items:flex-end">
 <div class="ctrl" id="steering" ontouchmove="steerMove(event)" ontouchend="steerReset()">⭕</div>
 <div style="display:flex;flex-direction:column;gap:4px">
-<div class="gearBox">⚙️ GEAR<br><b id="gearDisplay" style="font-size:16px;color:#ffcc00">N</b><br><span style="font-size:7px">11 Gear System</span></div>
+<div class="gearBox">⚙️ GEAR<br><b id="gearDisplay" style="font-size:16px;color:#ffcc00">N</b><br><span style="font-size:7px">11 Gear</span></div>
 <div style="display:flex;gap:4px"><button class="ctrl" style="width:32px;height:32px;font-size:12px;background:#444;color:#fff" onclick="changeGear(-1)">▼</button><button class="ctrl" style="width:32px;height:32px;font-size:12px;background:#444;color:#fff" onclick="changeGear(1)">▲</button></div>
 </div>
 </div>
 <div style="display:flex;gap:4px;align-items:flex-end">
-<div class="fuelBox">⛽ FUEL TANK<br><b id="fuelDisplay">81%</b><br><button style="font-size:7px;padding:2px 4px;background:#00e676;border:none;border-radius:4px" onclick="loadFuel()">LOAD FUEL 120TK/L</button><br><span style="font-size:6px">Tank Load</span></div>
-<div class="ctrl" style="width:42px;height:42px;font-size:14px;background:#2196F3;color:#fff" onclick="toggleDriver()">🧑‍✈️<br><span style="font-size:6px">DRIVER</span></div>
-<div class="ctrl" style="width:42px;height:42px;font-size:12px" onclick="toggleDoor()">🚪<br><span style="font-size:6px">DOOR</span></div>
-<div class="ctrl" style="width:42px;height:42px;font-size:12px" onclick="toggleLight()">💡<br><span style="font-size:6px">LIGHT</span></div>
+<div class="fuelBox">⛽ FUEL<br><b id="fuelDisplay">81%</b><br><button style="font-size:7px;padding:2px 4px;background:#00e676;border:none;border-radius:4px" onclick="loadFuel()">LOAD 120TK/L</button></div>
+<div class="ctrl" style="width:42px;height:42px;font-size:14px;background:#2196F3;color:#fff" onclick="toggleDriver()">🧑‍✈️</div>
+<div class="ctrl" style="width:42px;height:42px" onclick="toggleDoor()">🚪</div>
+<div class="ctrl" style="width:42px;height:42px" onclick="toggleLight()">💡</div>
 </div>
 </div>
-
 <div id="controlsBottom">
-<div style="display:flex;gap:5px"><div class="ctrl" onclick="honk();showDialogue()">📯<br><span style="font-size:6px">HORN</span></div><div class="ctrl" style="font-size:10px" onclick="toggleCamera()">📷<br><span style="font-size:6px">CAM</span></div></div>
-<div style="display:flex;gap:6px;align-items:flex-end">
-<div class="ctrl" style="width:58px;height:68px;background:linear-gradient(to bottom,#ff5252,#b71c1c);color:#fff;border-radius:12px;font-weight:900" ontouchstart="brake=true" ontouchend="brake=false" onmousedown="brake=true" onmouseup="brake=false">BRAKE<br><span style="font-size:7px">ব্রেক</span></div>
-<div class="ctrl" style="width:68px;height:78px;background:linear-gradient(to bottom,#00e676,#00a152);color:#000;border-radius:14px;font-weight:900;font-size:16px" ontouchstart="gas=true" ontouchend="gas=false" onmousedown="gas=true" onmouseup="gas=false">GAS<br><span style="font-size:8px">এক্সিলেটর</span></div>
-</div>
+<div style="display:flex;gap:5px"><div class="ctrl" onclick="honk();showDialogue()">📯</div><div class="ctrl" style="font-size:10px" onclick="toggleCamera()">📷</div></div>
+<div style="display:flex;gap:6px"><div class="ctrl" style="width:58px;height:68px;background:linear-gradient(#ff5252,#b71c1c);color:#fff;border-radius:12px;font-weight:900" ontouchstart="brake=true" ontouchend="brake=false" onmousedown="brake=true" onmouseup="brake=false">BRAKE</div><div class="ctrl" style="width:68px;height:78px;background:linear-gradient(#00e676,#00a152);color:#000;border-radius:14px;font-weight:900" ontouchstart="gas=true" ontouchend="gas=false" onmousedown="gas=true" onmouseup="gas=false">GAS</div></div>
 </div>
 </div>
 </div>
@@ -112,9 +119,7 @@ select,input{width:100%;padding:9px;background:#0f1a2a;color:#fff;border:1px sol
 <div id="admin">
 <h2 style="color:#ffcc00">ADMIN #ador@salman655 - BUS SIMULATOR BANGLADESH</h2>
 <input id="adminPass" type="password" placeholder="#ador@salman655"><button class="btn btnGold" onclick="checkAdmin()">Login</button>
-<div id="adminContent" style="display:none;margin-top:8px"><button class="btn btnPlay" onclick="addMoney(500000)">Add 500K TK</button><button class="btn btnGold" onclick="unlockAllBus()">Unlock All Bus FREE</button><button class="btn btnBlue" onclick="unlockAllChar()">Unlock All Char</button><button class="btn" style="background:#333;color:#fff" onclick="admin.style.display='none'">Close</button>
-<div style="background:#111;padding:6px;border-radius:6px;font-size:8px;margin-top:6px">Sleeper Max 300 | Normal Max 180 | 11 Gear | BUSSID Style Cabin | Ad [EMPTY] Tomorrow</div>
-</div>
+<div id="adminContent" style="display:none;margin-top:8px"><button class="btn btnPlay" onclick="addMoney(500000)">Add 500K</button><button class="btn btnGold" onclick="unlockAllBus()">Unlock All Bus FREE</button><button class="btn btnBlue" onclick="unlockAllChar()">Unlock All Char</button><button class="btn" style="background:#333;color:#fff" onclick="admin.style.display='none'">Close</button><div style="background:#111;padding:6px;border-radius:6px;font-size:8px;margin-top:6px">Sleeper Max 300 | Normal Max 180 | 11 Gear | Logo Embedded Inside Code | No Separate File Needed | Direct APK | Ad [EMPTY] Tomorrow</div></div>
 </div>
 
 <script>
@@ -134,43 +139,33 @@ const buses=[
 {id:10,name:"Sylhet Green Line Sleeper",price:750000,vara:100,seat:45,maxSpeed:300,type:"Sleeper"},
 {id:11,name:"Green Line Double Decker",price:800000,vara:100,seat:80,maxSpeed:300,type:"Sleeper"}
 ];
-let ownedBuses=[0],money=5000,unlocked=[true,true,false,false,false],gas=false,brake=false,steer=0,speed=0,xPos=0,fuel=81,health=100,gameRun=false,doubleVara=false,currentVara=30,currentMaxSpeed=120,gear=0,camMode=0;
+let ownedBuses=[0],money=5000,unlocked=[true,true,false,false,false],gas=false,brake=false,steer=0,speed=0,xPos=0,fuel=81,gameRun=false,doubleVara=false,currentVara=30,currentMaxSpeed=120,gear=0;
 const gears=["N","R","1","2","3","4","5","6","7","8","9","10","11"];
 const canvas=document.getElementById('gameCanvas'),ctx=canvas.getContext('2d');
 function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}window.addEventListener('resize',resize);resize();
 const dialogues=["Oh My God Dhaka traffic is crazy!","Wow what a beautiful city!","Student Half ভাড়া উঠেন ভাই!"];
 function fillZila(){let f=fromZila,t=toZila;zilas.forEach(z=>{f.innerHTML+=`<option>${z}</option>`;t.innerHTML+=`<option>${z}</option>`});f.value="Dhaka";t.value="Faridpur";updateUpazila('from');updateUpazila('to')}
 function updateUpazila(type){let z=document.getElementById(type+'Zila').value;let u=document.getElementById(type+'Upazila');let list=upazilaData[z]||[z+" Sadar"];u.innerHTML="";list.forEach(up=>u.innerHTML+=`<option>${up}</option>`)}
-function renderBusShop(){let shop=busShop;shop.innerHTML="";buses.forEach(b=>{let owned=ownedBuses.includes(b.id);shop.innerHTML+=`<div class="shopItem ${owned?'free':'locked'}">🚌<br><b>${b.name.split(' - ')[0]}</b><br>${b.type} Max ${b.maxSpeed} KM/H<br><b>${b.free?'FREE':b.price/1000+'K'}</b><br>${owned?'OWNED':`<button onclick="buyBus(${b.id})">BUY</button>`}</div>`});updateBusSelect()}
+function renderBusShop(){let shop=busShop;shop.innerHTML="";buses.forEach(b=>{let owned=ownedBuses.includes(b.id);shop.innerHTML+=`<div class="shopItem ${owned?'free':'locked'}">🚌<br><b>${b.name.split(' - ')[0]}</b><br>${b.type} ${b.maxSpeed} KM/H<br><b>${b.free?'FREE':b.price/1000+'K'}</b><br>${owned?'OWNED':`<button onclick="buyBus(${b.id})">BUY</button>`}</div>`});updateBusSelect()}
 function updateBusSelect(){busSelect.innerHTML="";ownedBuses.forEach(id=>{let b=buses.find(x=>x.id==id);busSelect.innerHTML+=`<option value="${id}">${b.name} - Max ${b.maxSpeed} - ${b.type}</option>`});ownedBusCount.innerText=ownedBuses.length}
 function buyBus(id){let b=buses.find(x=>x.id==id);if(money>=b.price){money-=b.price;moneyTop.innerText=money;ownedBuses.push(id);renderBusShop()}else alert('টাকা কম!')}
 fillZila();renderBusShop();
-let load=0;let int=setInterval(()=>{load+=2;fill.style.width=load+'%';loadText.innerText='Loading BUSSID Style - Driver Cabin, Fuel Tank, 11 Gear, Sleeper 300... '+load+'%';if(load>=100){clearInterval(int);setTimeout(()=>{loading.classList.remove('active');login.classList.add('active')},500)}},38);
+let load=0;let int=setInterval(()=>{load+=2;fill.style.width=load+'%';loadText.innerText='Loading BUS SIMULATOR BANGLADESH - Logo Embedded - BUSSID Style... '+load+'%';if(load>=100){clearInterval(int);setTimeout(()=>{loading.classList.remove('active');login.classList.add('active')},500)}},38);
 function doLogin(){userNameTop.innerText=loginName.value||'Ador';login.classList.remove('active');lobby.classList.add('active');moneyTop.innerText=money}
 function openAdmin(){admin.style.display='flex'}
 function checkAdmin(){if(adminPass.value=='#ador@salman655'){adminContent.style.display='block'}else alert('Pass #ador@salman655')}
 function addMoney(a){money+=a;moneyTop.innerText=money}function unlockAllBus(){ownedBuses=buses.map(b=>b.id);renderBusShop()}function unlockAllChar(){unlocked=[true,true,true,true,true]}
 function doubleVaraAd(){doubleVara=true;doubleStatus.innerText='ON 2X';hudDouble.innerText=' 2X';alert('Ad 2X ON')}
 function changeGear(dir){gear+=dir;gear=Math.max(0,Math.min(12,gear));gearDisplay.innerText=gears[gear];hudGear.innerText=gears[gear]}
-function loadFuel(){if(money>=120){money-=120;fuel=Math.min(100,fuel+15);moneyTop.innerText=money;fuelTop.innerText=Math.floor(fuel);fuelDisplay.innerText=Math.floor(fuel)+'%';alert('Fuel Load! 120TK কাটা, Fuel এখন '+Math.floor(fuel)+'%')}else alert('টাকা নাই! 120TK লাগবে!')}
-function toggleDriver(){alert('🧑‍✈️ Driver Button - BUSSID Style - Driver Camera Change!')}function toggleDoor(){alert('🚪 Door Open/Close')}function toggleLight(){alert('💡 Head Light On/Off')}function toggleCamera(){camMode=(camMode+1)%3;alert('📷 Camera Mode '+camMode+' - BUSSID Style 5 Camera')}
-function startTrip(){let busId=parseInt(busSelect.value);let b=buses.find(x=>x.id==busId);let cIdx=parseInt(charSelect.value);if(!unlocked[cIdx]){alert('Character Lock!');return}currentVara=b.vara;currentMaxSpeed=b.maxSpeed;lobby.classList.remove('active');gameScreen.classList.add('active');hudRoute.innerText=fromZila.value+' '+fromUpazila.value+' to '+toZila.value;hudVara.innerText=currentVara;hudPass.innerText=Math.floor(Math.random()*25+10);gear=2;gearDisplay.innerText=gears[gear];hudGear.innerText=gears[gear];gameRun=true;loop()}
+function loadFuel(){if(money>=120){money-=120;fuel=Math.min(100,fuel+15);moneyTop.innerText=money;fuelTop.innerText=Math.floor(fuel);fuelDisplay.innerText=Math.floor(fuel)+'%';alert('Fuel Load 15%! 120TK কাটা! Fuel '+Math.floor(fuel)+'%')}else alert('টাকা নাই! 120TK লাগবে!')}
+function toggleDriver(){alert('🧑‍✈️ Driver Button - BUSSID Style Cabin View!')}function toggleDoor(){alert('🚪 Door Open/Close')}function toggleLight(){alert('💡 Light On/Off')}function toggleCamera(){alert('📷 Camera Mode Change - BUSSID Style!')}
+function startTrip(){let busId=parseInt(busSelect.value);let b=buses.find(x=>x.id==busId);if(!unlocked[parseInt(charSelect.value)]){alert('Character Lock!');return}currentVara=b.vara;currentMaxSpeed=b.maxSpeed;lobby.classList.remove('active');gameScreen.classList.add('active');hudRoute.innerText=fromZila.value+' '+fromUpazila.value+' to '+toZila.value;hudVara.innerText=currentVara;hudPass.innerText=Math.floor(Math.random()*25+10);gear=2;gearDisplay.innerText=gears[gear];hudGear.innerText=gears[gear];gameRun=true;loop()}
 function steerMove(e){let r=e.target.getBoundingClientRect();let cx=r.left+r.width/2;let clientX=e.touches?e.touches[0].clientX:e.clientX;steer=(clientX-cx)/50}
 function steerReset(){steer*=0.5}
 function honk(){try{let a=new AudioContext();let o=a.createOscillator();o.frequency.value=280;o.connect(a.destination);o.start();setTimeout(()=>o.stop(),200)}catch(e){}}
 function showDialogue(){let b=dialogueBox;b.innerText=dialogues[Math.floor(Math.random()*dialogues.length)];b.style.display='block';setTimeout(()=>b.style.display='none',2500)}
-function finishTrip(){let p=parseInt(hudPass.innerText)||18;let earn=currentVara*p;if(doubleVara)earn*=2;money+=earn;moneyTop.innerText=money;alert('Trip Done! Max Speed ছিল '+currentMaxSpeed+' KM/H - Earn '+earn+' TK');doubleVara=false;doubleStatus.innerText='OFF';hudDouble.innerText='';gameScreen.classList.remove('active');lobby.classList.add('active');gameRun=false}
-function loop(){if(!gameRun)return;
-let gearMultiplier=gear==0?0:gear==1?0.3:0.4+(gear*0.08);
-if(gas){speed+=0.4*gearMultiplier;fuel-=0.01}if(brake)speed-=1.1;else speed-=0.06;
-speed=Math.max(0,Math.min(currentMaxSpeed,speed));
-xPos+=steer*speed*0.07;xPos=Math.max(-3,Math.min(3,xPos));
-ctx.fillStyle='#081828';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#102a4a';ctx.fillRect(0,0,canvas.width,canvas.height*0.42);
-let rw=canvas.width*0.78,h=canvas.height*0.42;ctx.fillStyle='#2a2a2a';ctx.beginPath();ctx.moveTo(canvas.width/2-rw*0.12+xPos*28,h);ctx.lineTo(canvas.width/2+rw*0.12+xPos*28,h);ctx.lineTo(canvas.width/2+rw/2,canvas.height);ctx.lineTo(canvas.width/2-rw/2,canvas.height);ctx.closePath();ctx.fill();
-ctx.strokeStyle='#ffcc00';ctx.setLineDash([30,20]);ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(canvas.width/2+xPos*28,h);ctx.lineTo(canvas.width/2,canvas.height);ctx.stroke();ctx.setLineDash([]);ctx.lineWidth=1;
-for(let i=0;i<8;i++){let bx=(i*190-(Date.now()/(22-speed*0.1))%1520);ctx.fillStyle=i%2==0?'#3a2a1a':'#1a2a3a';ctx.fillRect(bx,h-50,45,50)}
-hudSpeed.innerText=Math.floor(speed);hudFuel.innerText=Math.floor(fuel);fuelDisplay.innerText=Math.floor(fuel)+'%';hudMoney.innerText=money.toLocaleString();fuelTop.innerText=Math.floor(fuel);
-requestAnimationFrame(loop)}
+function finishTrip(){let p=parseInt(hudPass.innerText)||18;let earn=currentVara*p;if(doubleVara)earn*=2;money+=earn;moneyTop.innerText=money;alert('Trip Done! Max Speed '+currentMaxSpeed+' KM/H - Earn '+earn+' TK');doubleVara=false;doubleStatus.innerText='OFF';hudDouble.innerText='';gameScreen.classList.remove('active');lobby.classList.add('active');gameRun=false}
+function loop(){if(!gameRun)return;let gearMul=gear==0?0:gear==1?0.3:0.4+(gear*0.08);if(gas){speed+=0.4*gearMul;fuel-=0.01}if(brake)speed-=1.1;else speed-=0.06;speed=Math.max(0,Math.min(currentMaxSpeed,speed));xPos+=steer*speed*0.07;xPos=Math.max(-3,Math.min(3,xPos));ctx.fillStyle='#081828';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#102a4a';ctx.fillRect(0,0,canvas.width,canvas.height*0.42);let rw=canvas.width*0.78,h=canvas.height*0.42;ctx.fillStyle='#2a2a2a';ctx.beginPath();ctx.moveTo(canvas.width/2-rw*0.12+xPos*28,h);ctx.lineTo(canvas.width/2+rw*0.12+xPos*28,h);ctx.lineTo(canvas.width/2+rw/2,canvas.height);ctx.lineTo(canvas.width/2-rw/2,canvas.height);ctx.closePath();ctx.fill();ctx.strokeStyle='#ffcc00';ctx.setLineDash([30,20]);ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(canvas.width/2+xPos*28,h);ctx.lineTo(canvas.width/2,canvas.height);ctx.stroke();ctx.setLineDash([]);ctx.lineWidth=1;for(let i=0;i<8;i++){let bx=(i*190-(Date.now()/(22-speed*0.1))%1520);ctx.fillStyle=i%2==0?'#3a2a1a':'#1a2a3a';ctx.fillRect(bx,h-50,45,50)}hudSpeed.innerText=Math.floor(speed);hudFuel.innerText=Math.floor(fuel);fuelDisplay.innerText=Math.floor(fuel)+'%';fuelTop.innerText=Math.floor(fuel);requestAnimationFrame(loop)}
 </script>
 </body>
   </html>
