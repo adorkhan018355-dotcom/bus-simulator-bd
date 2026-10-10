@@ -2,237 +2,175 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>BD Bus Simulator 2026 - 64 Zila Real Map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>BUS SIMULATOR BANGLADESH</title>
+<link rel="manifest" href="manifest.json">
+<meta name="application-name" content="BUS SIMULATOR BANGLADESH">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui, sans-serif}
-body{background:#000;color:#fff;overflow:hidden;touch-action:none}
-#topBar{position:fixed;top:0;left:0;width:100%;height:42px;background:#0f0f0f;display:flex;justify-content:space-between;align-items:center;padding:0 10px;z-index:1000;font-size:12px;font-weight:700;border-bottom:1px solid #333}
-#game{width:100vw;height:100vh;background:linear-gradient(#87CEEB 0%, #6ec6ff 30%, #2d5a27 100%);position:relative;overflow:hidden;padding-top:42px}
-#roadWrap{width:260px;height:100%;position:absolute;left:50%;transform:translateX(-50%);overflow:hidden}
-#road{width:100%;height:5000px;background:#222;position:absolute;left:0;top:-2000px;border-left:7px dashed #fff;border-right:7px dashed #fff}
-#bus{width:72px;height:145px;background:linear-gradient(#ffeb3b,#ffc107);border:3px solid #000;border-radius:16px;position:fixed;left:50%;top:68%;transform:translate(-50%,-50%);z-index:500;color:#000;text-align:center;font-weight:900;padding-top:8px;box-shadow:0 10px 30px #000}
-.roadItem{position:absolute;width:130px;background:#2a2a2a;border:1px solid #555;padding:7px;border-radius:10px;font-size:9px;text-align:center;left:-145px;line-height:11px}
-.roadItem.right{left:auto;right:-145px}
-#controls{position:fixed;bottom:0;left:0;width:100%;height:92px;background:#0a0a0a;display:flex;justify-content:space-around;align-items:center;z-index:1001}
-.cBtn{width:74px;height:74px;border-radius:50%;border:none;background:#fff;color:#000;font-size:26px;font-weight:900;box-shadow:0 4px 10px #000}
-#footer{position:fixed;bottom:92px;left:0;width:100%;background:rgba(0,0,0,0.75);text-align:center;font-size:9px;padding:5px 0;color:#bbb;z-index:999;letter-spacing:0.3px}
-.panel{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:94%;max-width:400px;background:#1c1c1e;border-radius:20px;padding:20px;z-index:2000;box-shadow:0 20px 60px #000;display:none;max-height:90vh;overflow-y:auto}
-.panel h2{text-align:center;margin-bottom:10px}
-input,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;border:none;background:#2c2c2e;color:#fff;outline:none}
-.mainBtn{width:100%;padding:13px;background:#00c853;color:#fff;border:none;border-radius:12px;font-weight:900;margin-top:10px}
-.small{font-size:9px;color:#aaa;text-align:center;margin-top:6px}
-.charGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.charCard{background:#2c2c2e;padding:10px;border-radius:12px;font-size:11px;text-align:center;border:2px solid transparent}
-.charCard.free{border-color:#00c853}
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;user-select:none;-webkit-tap-highlight-color:transparent}
+body{background:#000;color:#fff;height:100vh;width:100vw;overflow:hidden}
+.screen{position:absolute;inset:0;display:none;flex-direction:column;overflow-y:auto}
+.active{display:flex!important}
+#loading{background:radial-gradient(#0a2a1a,#000);align-items:center;justify-content:center;z-index:999}
+#logoCircle{width:110px;height:110px;background:linear-gradient(135deg,#006a4e,#f42a41);border-radius:25px;display:flex;align-items:center;justify-content:center;font-size:50px;border:3px solid #ffcc00;box-shadow:0 0 25px #ffcc00;animation:float 2s infinite ease-in-out}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+#bar{width:240px;height:10px;background:#1a1a1a;border-radius:10px;overflow:hidden;margin:14px auto;border:1px solid #333}
+#fill{height:100%;width:0%;background:linear-gradient(to right,#ffcc00,#00e676)}
+#topBar{background:#000;padding:6px 9px;display:flex;justify-content:space-between;font-size:10px;border-bottom:2px solid #ffcc00;color:#ffcc00;font-weight:bold}
+.card{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:11px;padding:8px;margin-bottom:6px}
+select,input{width:100%;padding:9px;background:#0f1a2a;color:#fff;border:1px solid #2a3a5a;border-radius:8px;font-size:11px;margin-top:4px}
+.btn{width:100%;padding:12px;border-radius:11px;border:none;font-weight:900;font-size:13px;margin-top:5px}
+.btnPlay{background:linear-gradient(to bottom,#00e676,#00a152);color:#000;font-size:17px;padding:16px;box-shadow:0 4px 15px rgba(0,230,118,0.4)}
+.btnGold{background:#ffcc00;color:#000}.btnBlue{background:#2196F3;color:#fff}
+.shopGrid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:5px}
+.shopItem{background:rgba(0,0,0,0.65);border:1px solid #444;border-radius:9px;padding:5px;text-align:center;font-size:8px}
+.free{border-color:#00e676!important}.locked{border-color:#ff5252}
+#gameScreen{background:#081828}canvas{width:100%;height:100%;display:block}
+#hud{position:absolute;top:0;left:0;right:0;background:linear-gradient(to bottom,rgba(0,0,0,0.95),transparent);display:flex;justify-content:space-between;padding:5px 7px;font-size:9px;pointer-events:none}
+#controls{position:absolute;bottom:0;left:0;right:0;height:145px;display:flex;flex-direction:column;padding:6px;background:linear-gradient(to top,rgba(0,0,0,0.92),transparent)}
+#controlsTop{display:flex;justify-content:space-between;align-items:flex-end}
+#controlsBottom{display:flex;justify-content:space-between;align-items:flex-end;margin-top:6px}
+.ctrl{width:48px;height:48px;background:radial-gradient(#fff,#ddd);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:#000;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.5)}
+#steering{width:90px;height:90px;background:radial-gradient(circle at 30% 30%,#fff,#888);border:5px solid #222}
+.gearBox{background:rgba(0,0,0,0.7);border:1px solid #ffcc00;border-radius:8px;padding:4px 8px;text-align:center;font-size:10px;min-width:55px}
+.fuelBox{background:rgba(0,0,0,0.7);border:1px solid #00e676;border-radius:8px;padding:4px 6px;font-size:8px;text-align:center}
+.dialoguePop{position:absolute;top:60px;left:50%;transform:translateX(-50%);background:#ffcc00;color:#000;padding:6px 12px;border-radius:16px;font-weight:bold;font-size:9px;display:none;z-index:20}
+#admin{position:absolute;inset:0;background:rgba(0,0,0,0.97);z-index:300;display:none;flex-direction:column;padding:12px}
+.privacy{font-size:7px;opacity:0.5;text-align:center;padding:4px}
 </style>
 </head>
 <body>
-<div id="topBar">
-<div>📍 <span id="zilaName">Dhaka</span> - <span id="upzilaName">Savar</span> | 💰 <span id="taka">0</span></div>
-<div>⛽ <span id="fuel">100</span>% | 🧍 <span id="pass">0</span>/30 | <span id="dayNight">Day ☀️</span></div>
+
+<div id="loading" class="screen active">
+<div style="text-align:center">
+<div id="logoCircle">🚌</div>
+<h1 style="color:#ffcc00;font-size:17px">BUS SIMULATOR BANGLADESH</h1>
+<p style="color:#00e676;font-size:10px">DARK TEAM BD | BUSSID STYLE LOADING</p>
+<div id="bar"><div id="fill"></div></div>
+<p id="loadText" style="font-size:9px">Loading BUSSID Style Driver Cabin... 0%</p>
+</div>
 </div>
 
-<div id="game">
-<div id="roadWrap"><div id="road"></div></div>
-<div id="bus"><div style="font-size:30px">🚌</div><span id="busName">SAKURA</span><div style="font-size:8px;margin-top:2px" id="charName">Sakib</div></div>
+<div id="login" class="screen">
+<div style="flex:1;display:flex;align-items:center;justify-content:center;background:radial-gradient(#1e3a5f,#000);padding:12px">
+<div style="width:100%;max-width:350px;background:rgba(0,0,0,0.85);border:1.5px solid #ffcc00;border-radius:16px;padding:16px;text-align:center">
+<div style="width:60px;height:60px;background:linear-gradient(135deg,#006a4e,#f42a41);border-radius:14px;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:30px">🚌</div>
+<h3 style="color:#ffcc00">BUS SIMULATOR BANGLADESH</h3>
+<input id="loginName" placeholder="নাম"><input id="loginEmail" placeholder="Gmail"><input id="loginPass" type="password" placeholder="Password">
+<button class="btn btnPlay" onclick="doLogin()">▶ LOGIN</button>
+<div class="privacy">Contact: darkteambd2026@gmail.com | Direct APK</div>
+</div>
+</div>
 </div>
 
-<div id="footer">DEV: adorkhan018355@gmail.com | bKash/Nagad: 01720122049 | 64 Zila + 495 Upazila | Ad Ready for Tomorrow</div>
+<div id="lobby" class="screen">
+<div id="topBar"><span>🚌 BUS SIMULATOR BANGLADESH | 💰<span id="moneyTop">5000</span>TK</span><span>🚌<span id="ownedBusCount">1</span> | ⛽<span id="fuelTop">81</span>%</span></div>
+<div style="flex:1;padding:7px;display:flex;flex-direction:column;gap:6px;overflow-y:auto">
+<div class="card" style="border-color:#ffcc00"><div style="color:#ffcc00;font-size:10px;font-weight:bold">🗺️ 64 Zila + Upazila:</div><div style="display:flex;gap:5px"><div style="flex:1"><select id="fromZila" onchange="updateUpazila('from')"></select><select id="fromUpazila"></select></div><div style="flex:1"><select id="toZila" onchange="updateUpazila('to')"></select><select id="toUpazila"></select></div></div></div>
+<div class="card" style="border-color:#00e676"><div style="color:#00e676;font-size:10px;font-weight:bold">🚌 BUS SHOP 250K-800K (Sleeper 300 Speed, Normal 180):</div><div class="shopGrid" id="busShop"></div><select id="busSelect"></select></div>
+<div class="card" style="border-color:#2196F3"><div style="color:#2196F3;font-size:10px;font-weight:bold">🎭 Character 2 Free 60K-100K:</div><select id="charSelect"><option value="0">🎩 Viral Hero FREE</option><option value="1">😎 Comedy King FREE</option><option value="2">👑 Dhaka King 60K LOCK</option><option value="3">🔥 Road Master 80K LOCK</option><option value="4">💎 Super Driver 100K LOCK</option></select></div>
+<button class="btn btnPlay" onclick="startTrip()">▶🚌 START GAME - BUSSID STYLE CABIN</button>
+<div style="display:flex;gap:5px"><button class="btn btnBlue" style="flex:1;padding:10px;font-size:10px" onclick="doubleVaraAd()">📺 Ad 2X <span id="doubleStatus">OFF</span></button><button class="btn btnGold" style="flex:1;padding:10px;font-size:10px" onclick="openAdmin()">🔑 ADMIN #ador@salman655</button></div>
+<div class="privacy">BUSSID Style: Driver Button, Fuel Tank Load, 11 Gear, Sleeper 300, Normal 180 | Direct APK | darkteambd2026@gmail.com</div>
+</div>
+</div>
 
+<!-- GAME SCREEN - BUSSID STYLE -->
+<div id="gameScreen" class="screen">
+<canvas id="gameCanvas"></canvas>
+<div class="dialoguePop" id="dialogueBox"></div>
+<div id="hud"><span>📍<span id="hudRoute">Dhaka</span> | 💰<span id="hudMoney">0</span> Vara <span id="hudVara">100</span><span id="hudDouble"></span> | 👥<span id="hudPass">0</span></span><span>⛽<span id="hudFuel">81</span>% | <span id="hudSpeed">0</span> KM/H | Gear <span id="hudGear">N</span></span></div>
+
+<!-- BUSSID STYLE CONTROLS -->
 <div id="controls">
-<button class="cBtn" id="leftBtn">⬅️</button>
-<button class="cBtn" onclick="doHorn()">📯</button>
-<button class="cBtn" onclick="handlePassenger()">🧍</button>
-<button class="cBtn" id="rightBtn">➡️</button>
+<div id="controlsTop">
+<div style="display:flex;gap:5px;align-items:flex-end">
+<div class="ctrl" id="steering" ontouchmove="steerMove(event)" ontouchend="steerReset()">⭕</div>
+<div style="display:flex;flex-direction:column;gap:4px">
+<div class="gearBox">⚙️ GEAR<br><b id="gearDisplay" style="font-size:16px;color:#ffcc00">N</b><br><span style="font-size:7px">11 Gear System</span></div>
+<div style="display:flex;gap:4px"><button class="ctrl" style="width:32px;height:32px;font-size:12px;background:#444;color:#fff" onclick="changeGear(-1)">▼</button><button class="ctrl" style="width:32px;height:32px;font-size:12px;background:#444;color:#fff" onclick="changeGear(1)">▲</button></div>
+</div>
+</div>
+<div style="display:flex;gap:4px;align-items:flex-end">
+<div class="fuelBox">⛽ FUEL TANK<br><b id="fuelDisplay">81%</b><br><button style="font-size:7px;padding:2px 4px;background:#00e676;border:none;border-radius:4px" onclick="loadFuel()">LOAD FUEL 120TK/L</button><br><span style="font-size:6px">Tank Load</span></div>
+<div class="ctrl" style="width:42px;height:42px;font-size:14px;background:#2196F3;color:#fff" onclick="toggleDriver()">🧑‍✈️<br><span style="font-size:6px">DRIVER</span></div>
+<div class="ctrl" style="width:42px;height:42px;font-size:12px" onclick="toggleDoor()">🚪<br><span style="font-size:6px">DOOR</span></div>
+<div class="ctrl" style="width:42px;height:42px;font-size:12px" onclick="toggleLight()">💡<br><span style="font-size:6px">LIGHT</span></div>
+</div>
 </div>
 
-<!-- LOGIN PANEL - PHASE 3 (11,12,13,14) -->
-<div id="loginPanel" class="panel" style="display:block">
-<h2>🚌 BD BUS SIMULATOR 2026</h2>
-<input id="playerName" placeholder="Custom Name (Point 11)">
-<select id="zilaSelect"></select>
-<select id="busSelect"><option>Sakura Paribahan</option><option>Hanif Enterprise</option><option>Ena Transport</option><option>Shyamoli NR</option></select>
-<button class="mainBtn" onclick="startGame()">LOGIN - Facebook / Gmail / Custom + START</button>
-<div class="small">Point 11 Login + Zila Select | Point 12 Leaderboard Top 100 | Point 13 Online Multiplayer (এক রাস্তায় সব Bus) | Point 14 Voice Chat + Horn Battle</div>
-<div class="small" style="margin-top:10px;color:#00e676">Day/Night + Weather (Point 5) | Passenger Uthanama (Point 6) | Taka System (Point 10) | Livery Paint (15) | Garage Repair (16) | Police + Traffic (17) | Play Store Publish Ready (18)</div>
+<div id="controlsBottom">
+<div style="display:flex;gap:5px"><div class="ctrl" onclick="honk();showDialogue()">📯<br><span style="font-size:6px">HORN</span></div><div class="ctrl" style="font-size:10px" onclick="toggleCamera()">📷<br><span style="font-size:6px">CAM</span></div></div>
+<div style="display:flex;gap:6px;align-items:flex-end">
+<div class="ctrl" style="width:58px;height:68px;background:linear-gradient(to bottom,#ff5252,#b71c1c);color:#fff;border-radius:12px;font-weight:900" ontouchstart="brake=true" ontouchend="brake=false" onmousedown="brake=true" onmouseup="brake=false">BRAKE<br><span style="font-size:7px">ব্রেক</span></div>
+<div class="ctrl" style="width:68px;height:78px;background:linear-gradient(to bottom,#00e676,#00a152);color:#000;border-radius:14px;font-weight:900;font-size:16px" ontouchstart="gas=true" ontouchend="gas=false" onmousedown="gas=true" onmouseup="gas=false">GAS<br><span style="font-size:8px">এক্সিলেটর</span></div>
+</div>
+</div>
+</div>
 </div>
 
-<!-- ADMIN PANEL -->
-<div id="adminPanel" class="panel">
-<h2>👑 ADMIN PANEL</h2>
-<p style="text-align:center;font-size:12px">Mail: adorkhan018355@gmail.com<br>bKash: 01720122049</p>
-<div style="margin:10px 0;background:#2c2c2e;padding:12px;border-radius:12px;font-size:12px">
-<div>💰 Taka: <span id="aTaka">0</span></div>
-<div>📍 Current: <span id="aZila">-</span></div>
-<div>⛽ Fuel: ∞ Unlimited</div>
-<div>🚌 All Bus Unlocked</div>
-<div>👤 All Character Free</div>
+<div id="admin">
+<h2 style="color:#ffcc00">ADMIN #ador@salman655 - BUS SIMULATOR BANGLADESH</h2>
+<input id="adminPass" type="password" placeholder="#ador@salman655"><button class="btn btnGold" onclick="checkAdmin()">Login</button>
+<div id="adminContent" style="display:none;margin-top:8px"><button class="btn btnPlay" onclick="addMoney(500000)">Add 500K TK</button><button class="btn btnGold" onclick="unlockAllBus()">Unlock All Bus FREE</button><button class="btn btnBlue" onclick="unlockAllChar()">Unlock All Char</button><button class="btn" style="background:#333;color:#fff" onclick="admin.style.display='none'">Close</button>
+<div style="background:#111;padding:6px;border-radius:6px;font-size:8px;margin-top:6px">Sleeper Max 300 | Normal Max 180 | 11 Gear | BUSSID Style Cabin | Ad [EMPTY] Tomorrow</div>
 </div>
-<input id="addTakaInput" placeholder="Taka Add Amount" type="number" value="10000">
-<button class="mainBtn" onclick="adminAddTaka()">ADD TAKA</button>
-<button class="mainBtn" style="background:#2962ff" onclick="unlockAll()">UNLOCK ALL CHARACTER + LIVERY + GARAGE FREE</button>
-<button class="mainBtn" style="background:#ff3d00" onclick="closeAdmin()">CLOSE ADMIN</button>
-<div class="small">Phase 2 Ad - 4 Full Screen Ad Placeholder Ready: Trip Double, Repair, Map Change, Daily 500 Taka - Kalke AdMob ID Bosbe</div>
-</div>
-
-<!-- CHARACTER SHOP - PHASE 2 Point 8 SAFE VERSION -->
-<div id="charPanel" class="panel">
-<h2>👤 Character Shop</h2>
-<div class="charGrid" id="charGrid"></div>
-<button class="mainBtn" onclick="document.getElementById('charPanel').style.display='none'">CLOSE</button>
-<p class="small">Play Store Policy এর জন্য Safe Bangladeshi Character ব্যবহার করা হয়েছে। সব Admin এর জন্য Free। Normal User: 10 Taka (bKash 01720122049)</p>
 </div>
 
 <script>
-// ===== 64 ZILA + 495 UPAZILA DATABASE - REAL MAP =====
-const bdData = {
-"Dhaka":["Savar","Dhamrai","Keraniganj","Nawabganj","Dohar"], "Faridpur":["Faridpur Sadar","Alfadanga","Boalmari","Bhanga","Nagarkanda","Charbhadrasan","Sadarpur","Madhukhali","Saltha"],
-"Gazipur":["Gazipur Sadar","Kaliakair","Kaliganj","Kapasia","Sreepur"], "Gopalganj":["Gopalganj Sadar","Kashiani","Kotalipara","Muksudpur","Tungipara"],
-"Kishoreganj":["Kishoreganj Sadar","Austagram","Bajitpur","Bhairab","Hossainpur","Itna","Karimganj","Katiadi","Kuliarchar","Mithamain","Nikli","Pakundia","Tarail"],
-"Madaripur":["Madaripur Sadar","Kalkini","Rajoir","Shibchar"], "Manikganj":["Manikganj Sadar","Daulatpur","Ghior","Harirampur","Saturia","Shibalaya","Singair"],
-"Munshiganj":["Gazaria","Lohajang","Munshiganj Sadar","Sirajdikhan","Sreenagar","Tongibari"], "Narayanganj":["Araihazar","Bandar","Narayanganj Sadar","Rupganj","Sonargaon"],
-"Narsingdi":["Belabo","Monohardi","Narsingdi Sadar","Palash","Raipura","Shibpur"], "Rajbari":["Baliakandi","Goalandaghat","Pangsha","Rajbari Sadar","Kalukhali"],
-"Shariatpur":["Bhedarganj","Damudya","Gosairhat","Naria","Shariatpur Sadar","Zajira"], "Tangail":["Tangail Sadar","Sakhipur","Basail","Madhupur","Ghatail","Kalihati","Nagarpur","Mirzapur","Gopalpur","Delduar","Bhuapur","Dhanbari"],
-"Mymensingh":["Mymensingh Sadar","Bhaluka","Trishal","Haluaghat","Muktagachha","Dhobaura","Fulbaria","Gaffargaon","Gouripur","Ishwarganj","Nandail","Phulpur"],
-"Jamalpur":["Jamalpur Sadar","Bakshiganj","Dewanganj","Islampur","Melandaha","Madarganj","Sarishabari"], "Netrokona":["Atpara","Barhatta","Durgapur","Khaliajuri","Kalmakanda","Kendua","Madan","Mohanganj","Netrokona Sadar","Purbadhala"],
-"Sherpur":["Jhenaigati","Nakla","Nalitabari","Sherpur Sadar","Sreebardi"],
-"Bogra":["Bogra Sadar","Adamdighi","Dhunat","Dhupchanchia","Gabtali","Kahaloo","Nandigram","Sariakandi","Shajahanpur","Sherpur","Sonatala","Shibganj"],
-"Joypurhat":["Akkelpur","Joypurhat Sadar","Kalai","Khetlal","Panchbibi"], "Naogaon":["Atrai","Badalgachhi","Manda","Dhamoirhat","Mohadevpur","Naogaon Sadar","Niamatpur","Patnitala","Porsha","Raninagar","Sapahar"],
-"Natore":["Bagatipara","Baraigram","Gurudaspur","Lalpur","Natore Sadar","Singra","Naldanga"], "Chapainawabganj":["Bholahat","Gomastapur","Nachole","Chapainawabganj Sadar","Shibganj"],
-"Pabna":["Atgharia","Bera","Bhangura","Chatmohar","Faridpur","Ishwardi","Pabna Sadar","Santhia","Sujanagar"], "Rajshahi":["Bagha","Bagmara","Charghat","Durgapur","Godagari","Mohanpur","Paba","Puthia","Tanore"],
-"Sirajganj":["Belkuchi","Chauhali","Kamarkhanda","Kazipur","Raiganj","Shahjadpur","Sirajganj Sadar","Tarash","Ullahpara"],
-"Dinajpur":["Birampur","Birganj","Biral","Bochaganj","Chirirbandar","Phulbari","Ghoraghat","Hakimpur","Kaharo","Khansama","Dinajpur Sadar","Nawabganj","Parbatipur"],
-"Gaibandha":["Phulchhari","Gaibandha Sadar","Gobindaganj","Palashbari","Sadullapur","Saghata","Sundarganj"], "Kurigram":["Bhurungamari","Char Rajibpur","Chilmari","Phulbari","Kurigram Sadar","Nageshwari","Rajarhat","Raomari","Ulipur"],
-"Lalmonirhat":["Aditmari","Hatibandha","Kaliganj","Lalmonirhat Sadar","Patgram"], "Nilphamari":["Dimla","Domar","Jaldhaka","Kishoreganj","Nilphamari Sadar","Saidpur"],
-"Panchagarh":["Atwari","Boda","Debiganj","Panchagarh Sadar","Tetulia"], "Rangpur":["Badarganj","Gangachara","Kaunia","Rangpur Sadar","Mithapukur","Pirgachha","Pirganj","Taraganj"],
-"Thakurgaon":["Baliadangi","Haripur","Pirganj","Ranisankail","Thakurgaon Sadar"],
-"Bagerhat":["Bagerhat Sadar","Chitalmari","Fakirhat","Kachua","Mollahat","Mongla","Morrelganj","Rampal","Sarankhola"], "Chuadanga":["Alamdanga","Chuadanga Sadar","Damurhuda","Jibannagar"],
-"Jessore":["Abhaynagar","Bagherpara","Chaugachha","Jhikargachha","Keshabpur","Jessore Sadar","Manirampur","Sharsha"], "Jhenaidah":["Harinakunda","Jhenaidah Sadar","Kaliganj","Kotchandpur","Maheshpur","Shailkupa"],
-"Khulna":["Batiaghata","Dacope","Dumuria","Dighalia","Koyra","Paikgachha","Phultala","Rupsha","Terokhada"], "Kushtia":["Bheramara","Daulatpur","Khoksa","Kushtia Sadar","Kumarkhali","Mirpur"],
-"Magura":["Magura Sadar","Mohammadpur","Shalikha","Sreepur"], "Meherpur":["Gangni","Meherpur Sadar","Mujibnagar"], "Narail":["Kalia","Lohagara","Narail Sadar"],
-"Satkhira":["Assasuni","Debhata","Kalaroa","Kaliganj","Satkhira Sadar","Shyamnagar","Tala"],
-"Barguna":["Amtali","Bamna","Barguna Sadar","Betagi","Patharghata","Taltali"], "Barisal":["Agailjhara","Babuganj","Bakerganj","Banaripara","Gaurnadi","Hizla","Barisal Sadar","Mehendiganj","Muladi","Wazirpur"],
-"Bhola":["Bhola Sadar","Burhanuddin","Char Fasson","Daulatkhan","Lalmohan","Manpura","Tazumuddin"], "Jhalokati":["Jhalokati Sadar","Kathalia","Nalchity","Rajapur"],
-"Patuakhali":["Bauphal","Dashmina","Galachipa","Kalapara","Mirzaganj","Patuakhali Sadar","Rangabali","Dumki"], "Pirojpur":["Bhandaria","Kawkhali","Mathbaria","Nazirpur","Pirojpur Sadar","Nesarabad","Zianagar"],
-"Bandarban":["Ali Kadam","Bandarban Sadar","Lama","Naikhongchhari","Rowangchhari","Ruma","Thanchi"], "Brahmanbaria":["Akhaura","Bancharampur","Brahmanbaria Sadar","Kasba","Nabinagar","Nasirnagar","Sarail","Ashuganj","Bijoynagar"],
-"Chandpur":["Chandpur Sadar","Faridganj","Haimchar","Haziganj","Kachua","Matlab Dakshin","Matlab Uttar","Shahrasti"], "Chattogram":["Anwara","Banshkhali","Boalkhali","Chandanaish","Fatikchhari","Hathazari","Lohagara","Mirsharai","Patiya","Rangunia","Raozan","Sandwip","Satkania","Sitakunda"],
-"Comilla":["Barura","Brahmanpara","Burichang","Chandina","Chauddagram","Daudkandi","Debidwar","Homna","Laksam","Muradnagar","Nangalkot","Comilla Sadar","Meghna","Monohargonj","Sadar Dakshin","Titas","Lalmai"],
-"Cox's Bazar":["Chakaria","Cox's Bazar Sadar","Kutubdia","Maheshkhali","Ramu","Teknaf","Ukhia","Pekua"], "Feni":["Chhagalnaiya","Daganbhuiyan","Feni Sadar","Parshuram","Sonagazi","Fulgazi"],
-"Khagrachhari":["Dighinala","Khagrachhari Sadar","Lakshmichhari","Mahalchhari","Manikchhari","Matiranga","Panchhari","Ramgarh"], "Lakshmipur":["Lakshmipur Sadar","Kamalnagar","Raipur","Ramganj","Ramgati"],
-"Noakhali":["Begumganj","Noakhali Sadar","Chatkhil","Companiganj","Hatiya","Senbagh","Sonaimuri","Subarnachar","Kabirhat"], "Rangamati":["Baghaichhari","Barkal","Kawkhali","Belaichhari","Kaptai","Juraichhari","Langadu","Naniyachar","Rajasthali","Rangamati Sadar"],
-"Habiganj":["Ajmiriganj","Bahubal","Baniyachong","Chunarughat","Habiganj Sadar","Lakhai","Madhabpur","Nabiganj","Shayestaganj"], "Moulvibazar":["Barlekha","Kamalganj","Kulaura","Moulvibazar Sadar","Rajnagar","Sreemangal","Juri"],
-"Sunamganj":["Bishwamvarpur","Chhatak","Derai","Dharamapasha","Dowarabazar","Jagannathpur","Jamalganj","Sullah","Sunamganj Sadar","Shantiganj","Tahirpur"],
-"Sylhet":["Balaganj","Beanibazar","Bishwanath","Companiganj","Fenchuganj","Golapganj","Gowainghat","Jaintiapur","Kanaighat","Sylhet Sadar","Zakiganj","South Surma","Osmani Nagar"]
-};
-
-const zilaList = Object.keys(bdData);
-let currentZila=0, currentUpzila=0, x=0, taka=0, fuel=100, pass=0, roadY=-2000, isDay=true, moveL=false, moveR=false, isAdmin=false;
-const adminPass="#ador@salman655";
-const characters=[{name:"Sakib Driver",price:0,free:true,dialog:"চলো, Dhaka যাবো! 🚌"},{name:"Rina Guide",price:10,free:false,dialog:"Ticket Check করো! 🎫"},{name:"Karim Chacha",price:10,free:false,dialog:"আস্তে চালাও বাবা!"},{name:"Mim Apu",price:15,free:false,dialog:"Araihazar নামবো!"},
-{name:"Salman Ustad",price:20,free:false,dialog:"Horn দাও! 📯"},{name:"Ador Boss",price:0,free:true,dialog:"Admin Boss! সব Free! 👑"},{name:"Rahim Driver",price:10,free:false,dialog:"Fuel শেষ! ⛽"},{name:"Nusrat Guide",price:15,free:false,dialog:"Passenger উঠাও!"}];
-
-// Init Dropdown
-let sel=document.getElementById('zilaSelect');
-zilaList.forEach(z=>{let o=document.createElement('option');o.textContent=z;sel.appendChild(o);});
-let charGrid=document.getElementById('charGrid');
-characters.forEach((c,i)=>{
-let div=document.createElement('div');div.className='charCard'+(c.free?' free':'');
-div.innerHTML=`<b>${c.name}</b><br><small>${c.dialog}</small><br><small>${c.free?'FREE':'10 Taka - bKash 01720122049'}</small><br><button onclick="selectChar(${i})" style="margin-top:5px;padding:5px 10px;border-radius:8px;border:none;background:#00c853;color:#fff">SELECT</button>`;
-charGrid.appendChild(div);
-});
-
-function startGame(){
-currentZila=document.getElementById('zilaSelect').selectedIndex;
-document.getElementById('busName').innerText=document.getElementById('busSelect').value.toUpperCase().split(' ')[0];
-document.getElementById('loginPanel').style.display='none';
-updateMap(); updateUI();
-}
-
-function updateMap(){
-let z=zilaList[currentZila]; let ups=bdData[z]; let u=ups[currentUpzila%ups.length];
-document.getElementById('zilaName').innerText=z; document.getElementById('upzilaName').innerText=u;
-if(document.getElementById('adminPanel').style.display==='block'){document.getElementById('aZila').innerText=z+" - "+u;}
-}
-
-function handlePassenger(){
-if(pass<30){pass++; taka+=isAdmin?0:20; if(!isAdmin && characters[1] && pass%5==0) alert(characters[1].dialog);}
-else{taka+=isAdmin?0:500; pass=0; if(!isAdmin){ /* AD PLACEHOLDER Point 7 - Trip Double */ } alert("✅ Trip Complete! "+zilaList[currentZila]+" থেকে +500 Taka! (Point 10)");}
-updateUI();
-}
-
-function doHorn(){ if(navigator.vibrate) navigator.vibrate(150); /* Point 14 Horn Battle + Voice Chat */ alert("📯 Horn Battle! - Point 14 - Voice Chat Ready");}
-
-function selectChar(i){
-document.getElementById('charName').innerText=characters[i].name;
-if(!characters[i].free &&!isAdmin){ if(taka>=10){taka-=10; alert(characters[i].dialog+" (Demo Video - চাপ দিলে বাজবে - Point 9)");} else {alert("Taka লাগবে! bKash: 01720122049 - 10 Taka"); return;} }
-else{ alert(characters[i].dialog+" - Point 9 Demo!"); }
-document.getElementById('charPanel').style.display='none'; updateUI();
-}
-
-function updateUI(){
-document.getElementById('taka').innerText=isAdmin?"∞ UNLIMITED":taka;
-document.getElementById('fuel').innerText=isAdmin?"∞":Math.floor(fuel);
-document.getElementById('pass').innerText=pass;
-document.getElementById('aTaka').innerText=isAdmin?"∞ UNLIMITED":taka;
-}
-
-// Build Real Road Items - Point 19
-let road=document.getElementById('road');
-let realPlaces=[
-{t:"🏥 Mymensingh Medical College",type:"Hospital - Real Location"}, {t:"🏪 Bogra Bazar",type:"Bazar Real - Dukan Point 19"},
-{t:"🏫 Dhaka College / School",type:"School Map এ দেখাবে"}, {t:"🚏 Mohakhali Bus Stand",type:"Bus Stand Real"},
-{t:"🏨 Sirajganj Hotel",type:"Hotel/Restaurant - Break"}, {t:"⛽ Meghna Petrol Pump",type:"Petrol Pump"},
-{t:"🔧 Garage - Repair/Upgrade",type:"Point 16 - Bus Repair"}, {t:"🚔 Police Check + Traffic",type:"Point 17 - Police System"},
-{t:"🌉 Jamuna Bridge",type:"Real Bridge"}, {t:"🌾 Araihazar Village",type:"Real Village Map"},
-{t:"🏪 Kushtia Lalon Bazar",type:"Real Bazar"}, {t:"🚏 Chattogram Bus Stand",type:"Real Bus Stand"}
+const zilas=["Dhaka","Faridpur","Gazipur","Gopalganj","Kishoreganj","Madaripur","Manikganj","Munshiganj","Narayanganj","Narsingdi","Rajbari","Shariatpur","Tangail","Barguna","Barisal","Bhola","Jhalokati","Patuakhali","Pirojpur","Bandarban","Brahmanbaria","Chandpur","Chittagong","Comilla","Cox's Bazar","Feni","Khagrachhari","Lakshmipur","Noakhali","Rangamati","Bogra","Joypurhat","Naogaon","Natore","Nawabganj","Pabna","Rajshahi","Sirajganj","Dinajpur","Gaibandha","Kurigram","Lalmonirhat","Nilphamari","Panchagarh","Rangpur","Thakurgaon","Bagerhat","Chuadanga","Jessore","Jhenaidah","Khulna","Kushtia","Magura","Meherpur","Narail","Satkhira","Habiganj","Moulvibazar","Sunamganj","Sylhet","Jamalpur","Mymensingh","Netrokona","Sherpur"];
+const upazilaData={"Dhaka":["Savar","Dhamrai"],"Faridpur":["Bhanga","Saltha","Faridpur Sadar"],"Mymensingh":["Trishal","Mymensingh Sadar"],"Bogra":["Bogra Sadar"],"Chittagong":["Patiya","Raozan"]};
+const buses=[
+{id:0,name:"Ena Transport - Non AC",price:0,vara:30,seat:38,free:true,maxSpeed:120,type:"Local"},
+{id:1,name:"Mymensingh Local",price:250000,vara:30,seat:40,maxSpeed:120,type:"Local"},
+{id:2,name:"Barisal Local",price:300000,vara:30,seat:40,maxSpeed:130,type:"Local"},
+{id:3,name:"Bogra Express",price:350000,vara:50,seat:38,maxSpeed:180,type:"Normal"},
+{id:4,name:"Desh Travels AC",price:450000,vara:80,seat:38,maxSpeed:180,type:"Normal"},
+{id:5,name:"Hanif Enterprise AC",price:500000,vara:80,seat:38,maxSpeed:180,type:"Normal"},
+{id:6,name:"Shyamoli NR AC",price:550000,vara:80,seat:38,maxSpeed:180,type:"Normal"},
+{id:7,name:"Khulna Royal AC",price:600000,vara:80,seat:38,maxSpeed:180,type:"Normal"},
+{id:8,name:"Sakura Sleeper",price:650000,vara:100,seat:50,maxSpeed:300,type:"Sleeper"},
+{id:9,name:"Chittagong Sleeper",price:700000,vara:100,seat:50,maxSpeed:300,type:"Sleeper"},
+{id:10,name:"Sylhet Green Line Sleeper",price:750000,vara:100,seat:45,maxSpeed:300,type:"Sleeper"},
+{id:11,name:"Green Line Double Decker",price:800000,vara:100,seat:80,maxSpeed:300,type:"Sleeper"}
 ];
-realPlaces.forEach((p,i)=>{
-let d=document.createElement('div'); d.className=i%2==0?'roadItem':'roadItem right'; d.style.top=(i*380+120)+'px';
-d.innerHTML=`<b>${p.t}</b><br><small>${p.type}</small><br><small style="color:#0f0">${zilaList[(i*5)%64]}</small>`; road.appendChild(d);
-});
-
-// Controls Binding
-function bind(id,dir){
-let el=document.getElementById(id);
-let s=e=>{e.preventDefault(); if(dir==='L') moveL=true; else moveR=true;};
-let en=e=>{e.preventDefault(); if(dir==='L') moveL=false; else moveR=false;};
-el.addEventListener('touchstart',s,{passive:false}); el.addEventListener('touchend',en,{passive:false});
-el.addEventListener('mousedown',s); el.addEventListener('mouseup',en); el.addEventListener('mouseleave',en);
-}
-bind('leftBtn','L'); bind('rightBtn','R');
-
-// Admin - Bus 5 Click + Ctrl+A
-let clickC=0;
-document.getElementById('bus').addEventListener('click',()=>{
-clickC++; if(clickC>=5){clickC=0; openAdmin();}
-if(clickC==2){document.getElementById('charPanel').style.display='block';} // 2 click = character shop
-});
-document.addEventListener('keydown',e=>{if(e.ctrlKey && e.key.toLowerCase()==='a'){openAdmin();}});
-
-function openAdmin(){
-let p=prompt("Admin Password দাও জান:");
-if(p===adminPass){isAdmin=true; taka=999999; fuel=9999; document.getElementById('adminPanel').style.display='block'; updateUI(); updateMap(); alert("👑 Admin Login Success! সব FREE! - Contact: adorkhan018355@gmail.com");}
-else if(p!==null){alert("❌ Wrong Password!");}
-}
-function adminAddTaka(){let v=parseInt(document.getElementById('addTakaInput').value||0); taka+=v; updateUI();}
-function unlockAll(){isAdmin=true; taka=999999; alert("✅ All Character + All Bus Livery + Garage + Police Bypass = FREE for Admin!"); updateUI();}
-function closeAdmin(){document.getElementById('adminPanel').style.display='none';}
-
-// Game Loop - No Bug - 60FPS
-setInterval(()=>{
-if(moveL) x-=8; if(moveR) x+=8; x=Math.max(-105,Math.min(105,x));
-document.getElementById('bus').style.marginLeft=x+'px';
-roadY+=4; if(roadY>0) roadY=-4200; road.style.top=roadY+'px';
-if(!isAdmin){fuel-=0.02; if(fuel<=0){fuel=100; alert("🔧 Garage এ যাও! Bus Repair লাগবে! Point 16");}}
-updateUI();
-},16);
-
-setInterval(()=>{currentZila=(currentZila+1)%64; currentUpzila=(currentUpzila+1)%5; updateMap(); if(!isAdmin) taka+=20;},8000);
-setInterval(()=>{isDay=!isDay; document.getElementById('dayNight').innerText=isDay?"Day ☀️":"Night 🌙 + বৃষ্টি 🌧️"; document.getElementById('game').style.background=isDay?"linear-gradient(#87CEEB 0%, #6ec6ff 30%, #2d5a27 100%)":"linear-gradient(#0a0a2a 0%, #1a1a3a 40%, #1a3a1a 100%)";},12000);
-
-// Leaderboard Demo - Point 12
-console.log("Leaderboard Top 100 Ready - Taka + Zila Show - Online Multiplayer Ready - Point 13");
+let ownedBuses=[0],money=5000,unlocked=[true,true,false,false,false],gas=false,brake=false,steer=0,speed=0,xPos=0,fuel=81,health=100,gameRun=false,doubleVara=false,currentVara=30,currentMaxSpeed=120,gear=0,camMode=0;
+const gears=["N","R","1","2","3","4","5","6","7","8","9","10","11"];
+const canvas=document.getElementById('gameCanvas'),ctx=canvas.getContext('2d');
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}window.addEventListener('resize',resize);resize();
+const dialogues=["Oh My God Dhaka traffic is crazy!","Wow what a beautiful city!","Student Half ভাড়া উঠেন ভাই!"];
+function fillZila(){let f=fromZila,t=toZila;zilas.forEach(z=>{f.innerHTML+=`<option>${z}</option>`;t.innerHTML+=`<option>${z}</option>`});f.value="Dhaka";t.value="Faridpur";updateUpazila('from');updateUpazila('to')}
+function updateUpazila(type){let z=document.getElementById(type+'Zila').value;let u=document.getElementById(type+'Upazila');let list=upazilaData[z]||[z+" Sadar"];u.innerHTML="";list.forEach(up=>u.innerHTML+=`<option>${up}</option>`)}
+function renderBusShop(){let shop=busShop;shop.innerHTML="";buses.forEach(b=>{let owned=ownedBuses.includes(b.id);shop.innerHTML+=`<div class="shopItem ${owned?'free':'locked'}">🚌<br><b>${b.name.split(' - ')[0]}</b><br>${b.type} Max ${b.maxSpeed} KM/H<br><b>${b.free?'FREE':b.price/1000+'K'}</b><br>${owned?'OWNED':`<button onclick="buyBus(${b.id})">BUY</button>`}</div>`});updateBusSelect()}
+function updateBusSelect(){busSelect.innerHTML="";ownedBuses.forEach(id=>{let b=buses.find(x=>x.id==id);busSelect.innerHTML+=`<option value="${id}">${b.name} - Max ${b.maxSpeed} - ${b.type}</option>`});ownedBusCount.innerText=ownedBuses.length}
+function buyBus(id){let b=buses.find(x=>x.id==id);if(money>=b.price){money-=b.price;moneyTop.innerText=money;ownedBuses.push(id);renderBusShop()}else alert('টাকা কম!')}
+fillZila();renderBusShop();
+let load=0;let int=setInterval(()=>{load+=2;fill.style.width=load+'%';loadText.innerText='Loading BUSSID Style - Driver Cabin, Fuel Tank, 11 Gear, Sleeper 300... '+load+'%';if(load>=100){clearInterval(int);setTimeout(()=>{loading.classList.remove('active');login.classList.add('active')},500)}},38);
+function doLogin(){userNameTop.innerText=loginName.value||'Ador';login.classList.remove('active');lobby.classList.add('active');moneyTop.innerText=money}
+function openAdmin(){admin.style.display='flex'}
+function checkAdmin(){if(adminPass.value=='#ador@salman655'){adminContent.style.display='block'}else alert('Pass #ador@salman655')}
+function addMoney(a){money+=a;moneyTop.innerText=money}function unlockAllBus(){ownedBuses=buses.map(b=>b.id);renderBusShop()}function unlockAllChar(){unlocked=[true,true,true,true,true]}
+function doubleVaraAd(){doubleVara=true;doubleStatus.innerText='ON 2X';hudDouble.innerText=' 2X';alert('Ad 2X ON')}
+function changeGear(dir){gear+=dir;gear=Math.max(0,Math.min(12,gear));gearDisplay.innerText=gears[gear];hudGear.innerText=gears[gear]}
+function loadFuel(){if(money>=120){money-=120;fuel=Math.min(100,fuel+15);moneyTop.innerText=money;fuelTop.innerText=Math.floor(fuel);fuelDisplay.innerText=Math.floor(fuel)+'%';alert('Fuel Load! 120TK কাটা, Fuel এখন '+Math.floor(fuel)+'%')}else alert('টাকা নাই! 120TK লাগবে!')}
+function toggleDriver(){alert('🧑‍✈️ Driver Button - BUSSID Style - Driver Camera Change!')}function toggleDoor(){alert('🚪 Door Open/Close')}function toggleLight(){alert('💡 Head Light On/Off')}function toggleCamera(){camMode=(camMode+1)%3;alert('📷 Camera Mode '+camMode+' - BUSSID Style 5 Camera')}
+function startTrip(){let busId=parseInt(busSelect.value);let b=buses.find(x=>x.id==busId);let cIdx=parseInt(charSelect.value);if(!unlocked[cIdx]){alert('Character Lock!');return}currentVara=b.vara;currentMaxSpeed=b.maxSpeed;lobby.classList.remove('active');gameScreen.classList.add('active');hudRoute.innerText=fromZila.value+' '+fromUpazila.value+' to '+toZila.value;hudVara.innerText=currentVara;hudPass.innerText=Math.floor(Math.random()*25+10);gear=2;gearDisplay.innerText=gears[gear];hudGear.innerText=gears[gear];gameRun=true;loop()}
+function steerMove(e){let r=e.target.getBoundingClientRect();let cx=r.left+r.width/2;let clientX=e.touches?e.touches[0].clientX:e.clientX;steer=(clientX-cx)/50}
+function steerReset(){steer*=0.5}
+function honk(){try{let a=new AudioContext();let o=a.createOscillator();o.frequency.value=280;o.connect(a.destination);o.start();setTimeout(()=>o.stop(),200)}catch(e){}}
+function showDialogue(){let b=dialogueBox;b.innerText=dialogues[Math.floor(Math.random()*dialogues.length)];b.style.display='block';setTimeout(()=>b.style.display='none',2500)}
+function finishTrip(){let p=parseInt(hudPass.innerText)||18;let earn=currentVara*p;if(doubleVara)earn*=2;money+=earn;moneyTop.innerText=money;alert('Trip Done! Max Speed ছিল '+currentMaxSpeed+' KM/H - Earn '+earn+' TK');doubleVara=false;doubleStatus.innerText='OFF';hudDouble.innerText='';gameScreen.classList.remove('active');lobby.classList.add('active');gameRun=false}
+function loop(){if(!gameRun)return;
+let gearMultiplier=gear==0?0:gear==1?0.3:0.4+(gear*0.08);
+if(gas){speed+=0.4*gearMultiplier;fuel-=0.01}if(brake)speed-=1.1;else speed-=0.06;
+speed=Math.max(0,Math.min(currentMaxSpeed,speed));
+xPos+=steer*speed*0.07;xPos=Math.max(-3,Math.min(3,xPos));
+ctx.fillStyle='#081828';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#102a4a';ctx.fillRect(0,0,canvas.width,canvas.height*0.42);
+let rw=canvas.width*0.78,h=canvas.height*0.42;ctx.fillStyle='#2a2a2a';ctx.beginPath();ctx.moveTo(canvas.width/2-rw*0.12+xPos*28,h);ctx.lineTo(canvas.width/2+rw*0.12+xPos*28,h);ctx.lineTo(canvas.width/2+rw/2,canvas.height);ctx.lineTo(canvas.width/2-rw/2,canvas.height);ctx.closePath();ctx.fill();
+ctx.strokeStyle='#ffcc00';ctx.setLineDash([30,20]);ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(canvas.width/2+xPos*28,h);ctx.lineTo(canvas.width/2,canvas.height);ctx.stroke();ctx.setLineDash([]);ctx.lineWidth=1;
+for(let i=0;i<8;i++){let bx=(i*190-(Date.now()/(22-speed*0.1))%1520);ctx.fillStyle=i%2==0?'#3a2a1a':'#1a2a3a';ctx.fillRect(bx,h-50,45,50)}
+hudSpeed.innerText=Math.floor(speed);hudFuel.innerText=Math.floor(fuel);fuelDisplay.innerText=Math.floor(fuel)+'%';hudMoney.innerText=money.toLocaleString();fuelTop.innerText=Math.floor(fuel);
+requestAnimationFrame(loop)}
 </script>
 </body>
   </html>
